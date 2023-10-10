@@ -1,0 +1,35 @@
+#modal {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    transition: all ease .5s;
+}
+
+#modal-body {
+    background-color: white;
+    flex-direction: column;
+}
+
+#modal-content {
+    margin-top: -1.2rem;
+}
+
+#modal-content > * {
+    width: -webkit-fill-available;
+}
+
+#close-modal {
+    align-self: flex-end;
+    margin: 0;
+    font-family: cursive;
+    translate: 13px -14px;
+    border-radius: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #cfb13f;
+    border: 3px solid white;
+}
