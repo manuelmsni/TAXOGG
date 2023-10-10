@@ -12,10 +12,16 @@ class Modal{
 
     init(){
         this.parentBuffer = null;
+        this.window = document.getElementById("modal");
         this.modal = document.getElementById("modal");
         this.close = document.getElementById("close-modal");
         this.container = document.getElementById("modal-content");
+        
         this.close.addEventListener("click", this.closeModal.bind(this));
+        this.window.addEventListener("click", function(e){
+            if (e.target !== this.window) return;
+            this.closeModal();
+        }.bind(this));
     }
 
     loadContent(element){
