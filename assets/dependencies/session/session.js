@@ -4,11 +4,17 @@ class Session{
     session;
     langNames;
     key;
-    menu;
-    loaded;
-    paramManager;
+    
     preloader;
+
+    paramManager;
+
     router;
+    loaded;
+
+    modal;
+    
+    menu;
     
     constructor(){
     }
@@ -19,6 +25,7 @@ class Session{
         await this.initPreloader();
         await this.initParamManager();
         await this.initRouter();
+        await this.initModal();
         await this.initMenu();
         this.preloader.close();
     }
@@ -33,6 +40,10 @@ class Session{
 
     async initRouter(){
         await loadDependence('router');
+    }
+
+    async initModal(){
+        await loadComponent("app", "modal");
     }
 
     async initMenu(){
@@ -70,6 +81,15 @@ class Session{
     setPreloader(p){
         this.preloader = p;
         p.init();
+    }
+
+    getModal(){
+        return this.modal;
+    }
+
+    setModal(m){
+        this.modal = m;
+        m.init();
     }
 
     getMenu(){

@@ -11,6 +11,7 @@ class Modal{
     }
 
     init(){
+        this.parentBuffer = null;
         this.modal = document.getElementById("modal");
         this.close = document.getElementById("close-modal");
         this.container = document.getElementById("modal-content");
@@ -19,24 +20,38 @@ class Modal{
 
     loadContent(element){
         this.container.innerHTML = element.innerHTML;
+        this.showModal();
+    }
+
+    swapContent(element){
+        this.parentBuffer = element;
+        this.container.innerHTML = element.innerHTML;
+        this.parentBuffer.innerHTML = "";
+        this.showModal();
+    }
+
+    showModal(){
+        this.modal.classList.remove("none");
     }
 
     async closeModal(){
 
-        this.modal.style.opacity = 0;
+       // this.modal.style.opacity = 0;
 
-        await setTimeout(function() {
-            this.modal.classList.add("none")
-            if(this.parentBuffer == undefined || this.parentBuffer == null){
-                this.container.innerHTML = "";
+        //setTimeout(function() {
+            this.modal.classList.add("none");
+            if(!(this.parentBuffer == undefined || this.parentBuffer == null)){
+                this.parentBuffer.innerHTML = this.container.innerHTML;
+                this.parentBuffer = null;
             }
-            this.modal.opacity = 1;
-        }.bind(this), 500);
+            this.container.innerHTML = "";
+
+       //     this.modal.opacity = 1;
+        //}.bind(this), 500);
         
     }
 
 }
 
 window.Modal = Modal;
-session.setModal(modal);
-modal.init();
+session.setModal(new Modal());

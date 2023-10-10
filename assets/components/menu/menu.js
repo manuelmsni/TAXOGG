@@ -1,38 +1,44 @@
 class Menu {
+
   active;
+
+  selector;
+  burger;
+  buttons;
 
   constructor(){
   }
   
   init(){
+    this.selector = document.getElementById("lang-selector");
+    this.burger = document.getElementById("menu-burguer");
+    this.buttons = document.getElementById("menu-buttons");
     this.initLangSelector();
+    this.initBurger();
   }
 
   initLangSelector(){
     const languajes = Array.from(langs.keys());
-  
-    const selector = document.getElementById("lang-selector");
-    for (let i = 0; i < languajes.length; i++){
 
-      const lng = languajes[i];
-      const lngName = langNames.get(lng);
+    languajes.forEach(languaje => {
+      const lngName = langNames.get(languaje);
 
       var option = document.createElement("option");
-      option.value = lng;
-      option.text = lng.toUpperCase();
+      option.value = languaje;
+      option.text = languaje.toUpperCase();
       option.title = lngName;
-      selector.appendChild(option);
-      
-      /*
-      var nametag = document.createElement("a");
-      nametag.classList.add("lang-name");
-      nametag.text = " - " + lngName;
-      option.appendChild(nametag);
-      */
-    }
-    selector.addEventListener("change", function() {
-      setLang(selector.value);
+      this.selector.appendChild(option);
     });
+
+    this.selector.addEventListener("change", function() {
+      setLang(this.selector.value);
+    }.bind(this));
+  }
+
+  initBurger() {
+    this.burger.addEventListener("click", function() {
+        session.getModal().swapContent(this.buttons);
+    }.bind(this));
   }
 
 }
