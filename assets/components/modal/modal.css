@@ -36,3 +36,9 @@
     background: #cfb13f;
     border: 3px solid white;
 }
+
+#AlertIcon{
+    margin: auto;
+    max-width: 115px;
+    max-height: 115px;
+}

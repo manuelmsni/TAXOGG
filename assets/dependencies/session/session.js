@@ -9,6 +9,8 @@ class Session{
 
     paramManager;
 
+    tabManager;
+
     router;
     loaded;
 
@@ -27,6 +29,7 @@ class Session{
         await this.initRouter();
         await this.initModal();
         await this.initMenu();
+        await this.initTabManager();
         this.preloader.close();
     }
 
@@ -50,23 +53,19 @@ class Session{
         await loadComponent("app", "menu");
     }
 
+    async initTabManager(){
+        await loadComponent("app", "tabManager");
+    }
+
     goTo(view){
         this.paramManager.setParam("window", view);
     }
 
-    // --- Getters / Setters ---
-
-    getRouter(){
-        return this.router;
-    }
+    // --- Setters ---
     
     setRouter(r){
         this.router = r;
         r.init();
-    }
-
-    getParamManager(){
-        return this.paramManager;
     }
 
     setParamManager(pm){
@@ -74,17 +73,9 @@ class Session{
         pm.init();
     }
 
-    getPreloader(){
-        return this.preloader;
-    }
-
     setPreloader(p){
         this.preloader = p;
         p.init();
-    }
-
-    getModal(){
-        return this.modal;
     }
 
     setModal(m){
@@ -92,22 +83,19 @@ class Session{
         m.init();
     }
 
-    getMenu(){
-        return this.menu;
-    }
-
     setMenu(m){
         this.menu = m;
         m.init();
     }
 
-    getKey(){
-        return this.key;
-    }
-
     setKey(k){
         this.key = k;
         k.init();
+    }
+
+    setTabManager(t){
+        this.tabManager = t;
+        t.init();
     }
 
 }

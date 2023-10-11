@@ -52,6 +52,10 @@ body {
     width: fit-content;
 }
 
+.button {
+    border-radius: 3px;
+}
+
 .button:hover{
     cursor: pointer;
 }

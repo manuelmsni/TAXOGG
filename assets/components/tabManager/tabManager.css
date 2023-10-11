@@ -1,0 +1,33 @@
+#TabList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 5px;
+    background: #00000014;
+}
+.tab{
+    cursor: pointer;
+    margin-top: 5px;
+    padding-left: 0.8rem;
+    padding-right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    box-shadow: var(--border-light) 6px 0px 3px -6px;
+}
+.tab.active {
+    border-radius: 8px 8px 0px 0px;
+    background-color: white;
+}
+.closeTab{
+    background-color: #cfb13f;
+    padding-left: 4.5px;
+    padding-right: 4.5px;
+    padding-bottom: 2.5px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+}
+#tabContent{
+
+}
