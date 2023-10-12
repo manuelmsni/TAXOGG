@@ -14,10 +14,11 @@ class Tab{
         this.tabList.insertAdjacentHTML("beforeend", `<div class="tab"><p>${this.title}</p><a class="closeTab">x</a></div>`);
         this.tab = this.tabList.lastChild;
         this.setActive();
-        this.tab.addEventListener("click", function(){
+        this.tab.addEventListener("click", function(e){
+            if (e.target.classList.contains("closeTab") || this.tab.classList.contains("active")) return;
             this.setActive();
         }.bind(this));
-        this.tab.getElementsByClassName("closeTab")[0].addEventListener("click", function(){
+        this.tab.getElementsByClassName("closeTab")[0].addEventListener("click", function(e){
             this.close();
         }.bind(this));
     }
@@ -33,8 +34,7 @@ class Tab{
         var activeElements = this.tabList.getElementsByClassName("active");
         if(activeElements.length == 0){
             var lastChild = this.tabList.lastChild;
-            console.log(lastChild);
-            lastChild.classList.add("active");
+            if(!(lastChild.toString() == "[object Text]")) lastChild.classList.add("active");
         }
     }
 
@@ -46,7 +46,6 @@ class TabManager{
 
     constructor(){
         this.tabList = document.getElementById("TabList");
-        console.log(this.tabList);
     }
     
     init(){
@@ -60,3 +59,7 @@ class TabManager{
 
 window.TabManager = TabManager;
 session.setTabManager(new TabManager);
+session.tabManager.initTab("Pestaña 1");
+session.tabManager.initTab("Pestaña 2");
+session.tabManager.initTab("Pestaña 3");
+session.tabManager.initTab("Pestaña 4");

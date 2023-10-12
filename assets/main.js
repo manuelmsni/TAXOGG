@@ -4,14 +4,25 @@
  *                       *
  * * * * * * * * * * * * */
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 function checkArg(argName, argValue, type){
   if(!(typeof argValue == type)){
     throwException("WrongTypeArg", `The arg '${argName}' must be a '${type}'. '${argValue}' is not a valid ${type}.`);
   }
+}
+
+// Definición de métodos en el prototipo de String
+
+String.prototype.isBlank = function() {
+  console.log(this);
+  if (this == null || this == undefined) return true;
+  if (this.trim().length == 0) return true;
+  return /^[ \t\n\r\x0B\x0C]*$/.test(this);
+};
+
+String.prototype.capitalize = function(){
+  if(this == null || this == undefined) return null;
+  if(this.trim.length == 0) return this;
+  return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 /* * * * * * * * * * * * * * * * * *
