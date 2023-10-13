@@ -11,21 +11,35 @@ class Menu {
   
   init(){
     this.selector = document.getElementById("lang-selector");
-    this.burger = document.getElementById("menu-burguer");
+    this.burger = document.getElementById("menu-burger");
     this.buttons = document.getElementById("menu-buttons");
     this.initLangSelector();
     this.initBurger();
+    var buttons = this.buttons.getElementsByClassName("button");
+    for (var element of buttons) {
+      element.addEventListener("click", function (e) {
+        var element = e.target;
+        if (e.target instanceof HTMLParagraphElement) {
+          element = element.closest(".button");
+        }
+        if (!element.classList.contains("active")) {
+          var active = document.getElementById("menu-buttons").querySelector(".active");
+          if (active !== null) active.classList.remove("active");
+          element.classList.add("active");
+        }
+      }.bind(this));
+    }
   }
 
   initLangSelector(){
-    const languajes = Array.from(langs.keys());
+    const languages = Array.from(langs.keys());
 
-    languajes.forEach(languaje => {
-      const lngName = langNames.get(languaje);
+    languages.forEach(language => {
+      const lngName = langNames.get(language);
 
       var option = document.createElement("option");
-      option.value = languaje;
-      option.text = languaje.toUpperCase();
+      option.value = language;
+      option.text = language.toUpperCase();
       option.title = lngName;
       this.selector.appendChild(option);
     });
@@ -37,7 +51,7 @@ class Menu {
 
   initBurger() {
     this.burger.addEventListener("click", function() {
-        session.getModal().swapContent(this.buttons);
+        session.modal.swapContent(this.buttons);
     }.bind(this));
   }
 

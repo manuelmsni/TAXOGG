@@ -4,6 +4,8 @@
     flex-wrap: nowrap;
     padding-left: 5px;
     background: #00000014;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 .tab{
     cursor: pointer;
@@ -18,6 +20,9 @@
 .tab.active {
     border-radius: 8px 8px 0px 0px;
     background-color: white;
+}
+.tab p {
+    white-space: nowrap;
 }
 .closeTab{
     background-color: #cfb13f;

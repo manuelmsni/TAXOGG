@@ -41,7 +41,7 @@ class ParamManager {
         // Actualiza el valor del parámetro en el objeto searchParams
         this.params.set(param, value);
         this.setURL();
-        session.getRouter().route(this.getParams());
+        session.router.route(this.getParams());
     }
 }
 

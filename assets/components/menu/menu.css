@@ -1,3 +1,6 @@
+#menu{
+    background-color: white;
+}
 #logo{
     align-items: center;
     gap: .5rem;
@@ -32,6 +35,18 @@
     padding: 0rem;
     gap: .5rem;
     justify-content: flex-start;
+}
+
+#menu-buttons .button{
+    border-radius: 0;
+}
+
+#menu-buttons > .button.active{
+    box-shadow: inset 0 -3px 0 0px #efcf55;
+}
+
+#menu-buttons > .button:hover{
+    box-shadow: inset 0 -3px 0 0px #efcf55;
 }
 
 #profile-button{
@@ -71,11 +86,11 @@
     opacity: 1;
 }
 
-#menu-burguer > *{
+#menu-burger > *{
     flex: 1;
 }
 
-#menu-burguer > *:nth-child(even){
+#menu-burger > *:nth-child(even){
     background: #575241;
     border-radius: 5px;
 }
@@ -90,7 +105,7 @@
         margin-left: 1rem;
     }
 
-    #menu-burguer {
+    #menu-burger {
         display: flex;
         flex-direction: column;
         width: 25px;

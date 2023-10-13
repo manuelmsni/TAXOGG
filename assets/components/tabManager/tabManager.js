@@ -40,11 +40,58 @@ class Tab{
 
 }
 
-class TabManager{
+class Slider{
+    
+    slider;
+    isMoving = false;
+    xStartPosition;
+    scrollLeft;
+
+    constructor(sliderElement){
+        this.slider = sliderElement;
+        this.addListeners(this.slider);
+    }
+
+     // Slider effect
+    end = async () => {
+        this.slider.classList.remove('moving');
+        this.isMoving = false;
+    }
+
+    start = (e) => {
+        this.isMoving = true;
+        this.slider.classList.add('moving');
+        this.xStartPosition = e.pageX || e.touches[0].pageX - this.slider.offsetLeft;
+        this.scrollLeft = this.slider.scrollLeft;	
+    }
+
+    move = (e) => {
+        if(!this.isMoving) return;
+        e.preventDefault();
+        const x = e.pageX || e.touches[0].pageX - this.slider.offsetLeft;
+        const dist = (x - this.xStartPosition);
+        this.slider.scrollLeft = this.scrollLeft - dist;
+    }
+
+    addListeners(){
+        this.slider.addEventListener('mousedown', this.start);
+        this.slider.addEventListener('touchstart', this.start);
+    
+        this.slider.addEventListener('mousemove', this.move);
+        this.slider.addEventListener('touchmove', this.move);
+    
+        this.slider.addEventListener('mouseleave', this.end);
+        this.slider.addEventListener('mouseup', this.end);
+        this.slider.addEventListener('touchend', this.end);
+    }
+}
+
+class TabManager extends Slider{
 
     tabList;
 
     constructor(){
+        super(document.getElementById("TabList"));
         this.tabList = document.getElementById("TabList");
     }
     
@@ -55,6 +102,7 @@ class TabManager{
     initTab(title){
         new Tab(title);
     }
+
 }
 
 window.TabManager = TabManager;
