@@ -40,51 +40,82 @@ class Tab{
 
 }
 
-class Slider{
-    
+class UpdateLimit {
+    lastUpdateTime = 0;
+    frameRate;
+
+    constructor(limitPerSecond){
+        this.frameRate = 1000 / limitPerSecond;
+    }
+
+    update = (e, updateFunction) => {
+        const currentTime = performance.now();
+        if (currentTime - this.lastUpdateTime >= 1000 / this.frameRate) {
+            updateFunction(e);
+            this.lastUpdateTime = currentTime;
+        }
+    }
+}
+
+class Slider {
     slider;
     isMoving = false;
     xStartPosition;
     scrollLeft;
-
-    constructor(sliderElement){
-        this.slider = sliderElement;
-        this.addListeners(this.slider);
+    
+    updateLimit;
+  
+    constructor(sliderElement) {
+      this.slider = sliderElement;
+      this.addListeners();
+      this.updateLimit = new UpdateLimit(30);
     }
-
-     // Slider effect
-    end = async () => {
-        this.slider.classList.remove('moving');
-        this.isMoving = false;
+  
+    end = () => {
+      this.slider.classList.remove('moving');
+      this.isMoving = false;
     }
-
+  
     start = (e) => {
-        this.isMoving = true;
-        this.slider.classList.add('moving');
-        this.xStartPosition = e.pageX || e.touches[0].pageX - this.slider.offsetLeft;
-        this.scrollLeft = this.slider.scrollLeft;	
+      if (e.touches) {
+        e = e.touches[0];
+      }
+      this.isMoving = true;
+      this.slider.classList.add('moving');
+      this.xStartPosition = e.pageX - this.slider.offsetLeft;
+      this.scrollLeft = this.slider.scrollLeft;
+      this.lastUpdateTime = performance.now();
     }
-
+  
     move = (e) => {
-        if(!this.isMoving) return;
-        e.preventDefault();
-        const x = e.pageX || e.touches[0].pageX - this.slider.offsetLeft;
-        const dist = (x - this.xStartPosition);
+      if (!this.isMoving) return;
+      e.preventDefault();
+      if (e.touches) {
+        e = e.touches[0];
+      }
+      this.updateLimit.update(e, this.updatePosition);
+    }
+  
+    updatePosition = (e) => {
+      if (this.isMoving) {
+        const x = e.pageX - this.slider.offsetLeft;
+        const dist = x - this.xStartPosition;
         this.slider.scrollLeft = this.scrollLeft - dist;
+      }
     }
-
-    addListeners(){
-        this.slider.addEventListener('mousedown', this.start);
-        this.slider.addEventListener('touchstart', this.start);
-    
-        this.slider.addEventListener('mousemove', this.move);
-        this.slider.addEventListener('touchmove', this.move);
-    
-        this.slider.addEventListener('mouseleave', this.end);
-        this.slider.addEventListener('mouseup', this.end);
-        this.slider.addEventListener('touchend', this.end);
+  
+    addListeners() {
+      this.slider.addEventListener('mousedown', this.start);
+      this.slider.addEventListener('touchstart', this.start);
+  
+      this.slider.addEventListener('mousemove', this.move);
+      this.slider.addEventListener('touchmove', this.move);
+  
+      this.slider.addEventListener('mouseleave', this.end);
+      this.slider.addEventListener('mouseup', this.end);
+      this.slider.addEventListener('touchend', this.end);
     }
-}
+  }
 
 class TabManager extends Slider{
 
