@@ -1,4 +1,4 @@
-#TabList{
+.TabList{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -33,6 +33,6 @@
     cursor: pointer;
     color: var(--color-primary);
 }
-#tabContent{
+.tabDisplay{
 
 }

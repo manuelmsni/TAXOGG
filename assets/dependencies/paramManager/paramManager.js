@@ -43,6 +43,14 @@ class ParamManager {
         this.setURL();
         session.router.route(this.getParams());
     }
+
+    setParams(params){
+        params.forEach((value, key) => {
+            this.params.set(param, value);
+        });
+        this.setURL();
+        session.router.route(this.getParams());
+    }
 }
 
 window.ParamManager = ParamManager;

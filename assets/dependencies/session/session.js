@@ -26,10 +26,10 @@ class Session{
     async init(){
         await this.initPreloader();
         await this.initParamManager();
-        await this.initRouter();
+        await this.initTabManager();
+        await this.initRouter(); 
         await this.initModal();
         await this.initMenu();
-        await this.initTabManager();
         this.preloader.close();
     }
 

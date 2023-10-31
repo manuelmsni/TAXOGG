@@ -10,6 +10,13 @@ function checkArg(argName, argValue, type){
   }
 }
 
+function deleteFromArray(array, obj) {
+  const i = array.indexOf(obj);
+  if (i !== -1) {
+    array.splice(i, 1);
+  }
+}
+
 // Definición de métodos en el prototipo de String
 
 String.prototype.isBlank = function() {
@@ -137,6 +144,16 @@ async function throwException(exception, contextualInfo){
  *   Languaje management functions   *
  *                                   *
  * * * * * * * * * * * * * * * * * * */
+
+function getText(code, lang){
+  var dictionary;
+  if (typeof lang === 'undefined') {
+    dictionary = langs.get(document.documentElement.getAttribute('lang'));
+  } else {
+    dictionary = langs.get(lang);
+  }
+  return dictionary.get(code+"");
+}
 
 function setLangTo(parent) {
   const dictionary = langs.get(document.documentElement.getAttribute('lang'));
