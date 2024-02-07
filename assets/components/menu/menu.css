@@ -10,7 +10,10 @@
 #logo-img {
     height: 32px;
     width: 32px;
-    background: url('../../img/favicon32.png');
+    background: url('../../img/logo.svg');
+    background-repeat: no-repeat;
+    background-position: center; /* Centra la imagen en el contenedor */
+    background-size: contain;
 }
 
 #logo p {
